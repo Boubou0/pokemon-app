@@ -2,6 +2,17 @@
 
 Welcome to the Pokémon App documentation! This documentation provides information on how to use, build, test, and run the application locally.
 
+## Participants
+Made by:
+- Boubou Jean-Philippe
+- Masset Eliot
+
+## Github
+https://github.com/Boubou0/pokemon-app/edit/main/README.md
+
+# Docker Hub
+https://hub.docker.com/r/fabrien/poke-app
+
 ## What is the Pokémon Project?
 
 The Pokémon App is a web application that offers two main functionalities:
