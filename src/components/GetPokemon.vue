@@ -36,7 +36,7 @@ const searched = ref(false);
 
 const search = async () => {
   try {
-    const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${query.value.toLowerCase()}`);
+    const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${query.value.toLowerCase()}?limit=100000`);
     const data = await response.json();
     if (data.name) {
       results.value = [data];
