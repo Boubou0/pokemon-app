@@ -18,9 +18,30 @@ jobs:
     needs: build
     steps:
     - uses: actions/checkout@v3
+      with:
+      fetch-depth: 0
     - name: Publish Docker image
       run: |
         docker build -t poke-app:latest .
         docker tag poke-app:latest fabrien/poke-app:latest
         echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
         docker push fabrien/poke-app:latest
+    - name: Tag and Push
+      run: |
+        # Récupérer le dernier tag et incrémenter la version
+        TAG=$(git describe --tags `git rev-list --tags --max-count=1`)
+        if [ -z "$TAG" ]; then
+          NEW_TAG="0.1.0"
+        else
+          NEW_TAG=$(echo $TAG | awk -F. -v OFS=. '{$NF++;print}')
+        fi
+
+        # Configurer les informations de l'utilisateur Git
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+
+        # Créer le nouveau tag et le pousser
+        git tag $NEW_TAG
+        git push origin $NEW_TAG
+
+        echo "Nouveau tag créé et poussé: $NEW_TAG"
