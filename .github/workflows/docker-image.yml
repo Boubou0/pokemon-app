@@ -27,6 +27,8 @@ jobs:
         echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
         docker push fabrien/poke-app:latest
     - name: Tag and Push
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
         # Récupérer tous les tags existants et vérifier s'il y en a
         TAGS=$(git tag)
