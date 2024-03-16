@@ -19,7 +19,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
       with:
-      fetch-depth: 0
+        fetch-depth: 0
     - name: Publish Docker image
       run: |
         docker build -t poke-app:latest .
