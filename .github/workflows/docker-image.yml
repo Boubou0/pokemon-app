@@ -48,6 +48,6 @@ jobs:
 
         # Créer le nouveau tag et le pousser
         git tag $NEW_TAG
-        git push origin $NEW_TAG
+        git push https://${GITHUB_TOKEN}@${GITHUB_SERVER_URL#https://}/${GITHUB_REPOSITORY}.git $NEW_TAG
 
         echo "Nouveau tag créé et poussé: $NEW_TAG"
