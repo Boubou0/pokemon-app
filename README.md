@@ -8,7 +8,7 @@ Made by:
 - Masset Eliot
 
 ## Github
-https://github.com/Boubou0/pokemon-app/edit/main/README.md
+https://github.com/Boubou0/pokemon-app
 
 # Docker Hub
 https://hub.docker.com/r/fabrien/poke-app
