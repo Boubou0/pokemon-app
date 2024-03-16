@@ -28,8 +28,12 @@ jobs:
         docker push fabrien/poke-app:latest
     - name: Tag and Push
       run: |
-        # Récupérer le dernier tag et incrémenter la version
-        TAG=$(git describe --tags `git rev-list --tags --max-count=1`)
+        # Vérifie si des tags existent
+        if git fetch --tags && git tag; then
+          TAG=$(git describe --tags `git rev-list --tags --max-count=1`)
+        else
+          TAG=""
+        fi
         if [ -z "$TAG" ]; then
           NEW_TAG="0.1.0"
         else
