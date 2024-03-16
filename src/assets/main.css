@@ -7,6 +7,14 @@
   font-weight: normal;
 }
 
+main {
+  display: flex;
+  flex-direction: row-reverse;
+  column-gap: 20px;
+  align-items: center;
+  justify-content: center;
+}
+
 a,
 .green {
   text-decoration: none;
@@ -25,11 +33,5 @@ a,
   body {
     display: flex;
     place-items: center;
-  }
-
-  #app {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    padding: 0 2rem;
   }
 }

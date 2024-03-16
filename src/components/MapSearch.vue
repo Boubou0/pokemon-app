@@ -21,6 +21,13 @@
     isLoading.value = false;
   }
 
+  async function clickOnPokemon(e) {
+    let name = e.target.querySelector("h3").innerText;
+    await navigator.clipboard.writeText(name);
+    alert("Pokemon copied in clipboard");
+
+  }
+
   async function getPokemons() {
       return new Promise(resolve => {
           let pokemons = [];
@@ -31,11 +38,17 @@
           fetch(selectedCity.value.url)
           .then(response => response.json())
           .then(dataCity => {
+              if(dataCity.areas.length === 0) {
+                resolve(pokemons);
+              }
               for(let area of dataCity.areas) {
                   fetch(area.url)
                   .then(response => response.json())
                   .then(data => {
                       let countPokemons = 0;
+                      if(data.pokemon_encounters.length === 0) {
+                        resolve(pokemons);
+                      }
                       for(let pokemon_encounter of data.pokemon_encounters) {
                           let name = pokemon_encounter.pokemon.name;
                           fetch(pokemon_encounter.pokemon.url)
@@ -75,12 +88,13 @@
 
 <template>
   <div class="mapContainer">
+    <img alt="PokedexRight" class="pokedexRight" src="/pokedexRight.png"/>
     <fieldset class="selectMapContainer">
       <label for="location">Location:</label>
       <v-select :options="citiesList" v-model="selectedCity" variant="solo" @update:modelValue="onCityChanged" :disabled="isLoading" />
     </fieldset>
     <div class="pokemons">
-      <div class="pokemon" v-if="!isLoading" v-for="pokemon in pokemons">
+      <div class="pokemon" v-if="!isLoading" v-for="pokemon in pokemons" @click="clickOnPokemon">
         <img :src="pokemon.src" alt="pokemon" />
         <h3>{{pokemon.name}}</h3>
       </div>
@@ -94,30 +108,56 @@
 
 <style>
   .mapContainer {
-    width: 100%;
+    width: 600px;
+    max-width: 425px;
+    position: relative;
   }
   .v-select {
     width: 300px;
   }
   .pokemons {
-      width: 600px;
+      position: absolute;
+      width: 300px;
+      max-height: 350px;
+      overflow-y: auto;
       display: flex;
       flex-wrap: wrap;
       flex-direction: row;
       justify-content: start;
       align-items: start;
+      transform: translateY(-30%);
   }
 
   .pokemons h3 {
     text-align: center;
+    pointer-events: none;
   }
 
   .pokemon {
-    width: 200px;
+    width: 100px;
+    cursor: pointer;
   }
 
   .pokemon img {
-    width: 200px;
+    width: 100px;
+    pointer-events: none;
+  }
+
+  fieldset {
+    border: none;
+    position: absolute;
+    transform: translateY(-250%);
+    z-index: 2;
+  }
+
+  .pokedexRight {
+    position: absolute;
+    bottom: 53%;
+    left: 50%;
+    transform: translate(-55%, 47%);
+    animation: float 1s ease-in-out infinite, changeImage 6s ease-in-out infinite;
+    cursor: pointer;
+    max-width: 425px;
   }
 
   .loader {
