@@ -1,10 +1,12 @@
 <script setup>
 import MapSearch from './components/MapSearch.vue'
+import GetPokemon from "./components/GetPokemon.vue";
 </script>
 
 <template>
   <main>
     <MapSearch />
+    <GetPokemon></GetPokemon>
   </main>
 </template>
 
