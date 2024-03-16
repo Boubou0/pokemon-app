@@ -6,16 +6,18 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "vitest": "vitest",
+    "vitest": "vitest --dom",
     "preview": "vite preview"
   },
   "dependencies": {
+    "happy-dom": "^6.0.4",
     "vue": "^3.4.15",
     "vue-select": "^4.0.0-beta.6"
   },
   "devDependencies": {
-    "@vitejs/plugin-vue": "^5.0.3",
-    "vite": "^5.0.11",
+    "@vitejs/plugin-vue": "^5.0.4",
+    "@vue/test-utils": "^2.4.5",
+    "vite": "^5.1.6",
     "vitest": "^1.3.1"
   }
 }
